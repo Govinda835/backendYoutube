@@ -4,7 +4,7 @@ import cookieParser from "cookie-parser"
 
 const app = express()
 
-app.use(cors({
+app.use(cors({ //Specifies which domains are allowed to access your API.
     origin: process.env.CORS_ORIGIN,
     credentials: true
 }))

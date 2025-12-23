@@ -1,10 +1,10 @@
 const asyncHandler = (requestHandler)=>{ //This will throw an error that Express can't catch
-   (req, res, next)=>{
+   return (req, res, next)=>{
     Promise.resolve(requestHandler(req, res, next)).catch((err) => next(err))
    }
 }
 
-export {asyncHandler}
+export default asyncHandler
 
 
 // const asyncHandler = ()=>{}

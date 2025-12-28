@@ -26,7 +26,7 @@ const userSchema = new mongoose.Schema({
         trim: true,
         index: true 
     },
-    avater: {
+    avatar: {
         type: String, // cloudinary url
         required: true,
     },
@@ -50,12 +50,18 @@ const userSchema = new mongoose.Schema({
 
 },{timestamps: true})
 
-userSchema.pre("save", async function(next) {
-    if(!this.isModified("password")) return next()
 
-    this.password = await bcrypt.hash(this.password, 10)   //encrypting password 
-    next()
+userSchema.pre("save", async function () {
+    if(!this.isModified("password")) return;
+
+    this.password = await bcrypt.hash(this.password, 10)
 })
+
+// userSchema.pre("save",  function() {
+//     if(!this.isModified("password")) return ;
+
+//     this.password =  bcrypt.hash(this.password, 10)   //encrypting password 
+// })
 
 userSchema.methods.isPasswordCorrect = async function (password){  // password checking 
    return await bcrypt.compare(password, this.password)
